@@ -23,6 +23,8 @@ export default function BlogList({ posts }) {
 
 export const getStaticProps = async () => {
   const posts = getAllPosts();
+  // sort array - https://stackoverflow.com/a/67992215/6908282
+  posts.sort((a, b) => a.frontmatter.publishedOn > b.frontmatter.publishedOn ? -1 : 1)
 
   return {
     props: { posts },
