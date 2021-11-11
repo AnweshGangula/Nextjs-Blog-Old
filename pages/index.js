@@ -3,34 +3,34 @@ import { getAllPosts } from "../utils/mdx";
 
 export default function BlogList({ posts }) {
   return (
-    <div className="wrapper">
+    <section className="recentPosts">
       <p>Recently Published</p>
-      <div>
+      <div id="articles">
         {posts.map((post, index) => {
           const options = {
+            // Format Date in JS: https://stackoverflow.com/a/69883358/6908282
             year: 'numeric',
             month: 'short',
             day: '2-digit'
           }
-          const date = new Date(post.frontmatter.publishedOn).toLocaleString(undefined, options)
+          const date = new Date(post.frontmatter.publishedOn)
           return (
             <article className="ContentPreview" key={index}>
               <Link href={`posts/${post.slug}`} passHref={true}>
                 <a>
                   <h3>{post.frontmatter.title}</h3>
                   <p>{post.frontmatter.abstract}</p>
-                  <div>
+                  <div className="articleBottom">
                     <p>Read More</p>
-                    <p>{date}</p>
+                    <p title={date.toLocaleString()}>{date.toLocaleString(undefined, options)}</p>
                   </div>
                 </a>
               </Link>
-              <br></br>
             </article>
           )
         })}
       </div>
-    </div>
+    </section>
   );
 }
 

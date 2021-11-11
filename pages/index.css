@@ -1,0 +1,14 @@
+.recentPosts {
+  max-width: 900px;
+  margin: auto;
+}
+
+.articleBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+#articles {
+  display: grid;
+  gap: 20px;
+}
