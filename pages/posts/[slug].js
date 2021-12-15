@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
@@ -12,7 +12,7 @@ const CustomLink = ({ as, href, ...otherProps }) => {
 };
 
 const Post = ({ code, frontmatter }) => {
-    const Component = React.useMemo(() => getMDXComponent(code), [code]);
+    const Component = useMemo(() => getMDXComponent(code), [code]);
     return (
         <div className="wrapper">
             <h1>{frontmatter.title}</h1>
