@@ -12,3 +12,15 @@
   display: grid;
   gap: 20px;
 }
+
+a {
+  color: initial;
+}
+
+article {
+  border-bottom: 1px solid lightgray;
+}
+
+article:hover h3 {
+  color: blueviolet;
+}
