@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import './index.css'
 
 import './prism.css'
 // Reference: https://stackoverflow.com/questions/65628350/mdx-syntax-highlighting-is-not-working-in-next-js
