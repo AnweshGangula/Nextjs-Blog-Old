@@ -3,7 +3,9 @@ import path from "path";
 import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 
+import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 
 export const POSTS_PATH = path.join(process.cwd(), "data/posts");
@@ -36,8 +38,17 @@ export const getSinglePost = async (slug) => {
         xdmOptions(options) {
             options.rehypePlugins = [
                 ...(options.rehypePlugins ?? []),
+                rehypeSlug,
                 rehypeCodeTitles,
                 rehypePrism,
+                [
+                    rehypeAutolinkHeadings,
+                    {
+                        properties: {
+                            className: ['anchor']
+                        }
+                    }
+                ]
             ];
 
             return options;
