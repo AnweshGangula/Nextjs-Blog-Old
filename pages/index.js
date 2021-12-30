@@ -18,7 +18,7 @@ export default function BlogList({ posts }) {
           const date = new Date(post.frontmatter.publishedOn)
           return (
             <article className={styles.ContentPreview} key={index}>
-              <Link href={`posts/${post.slug}`} passHref={true}>
+              <Link href={`blog/${post.slug}`} passHref={true}>
                 <a>
                   <h3>{post.frontmatter.title}</h3>
                   <p>{post.frontmatter.abstract}</p>
