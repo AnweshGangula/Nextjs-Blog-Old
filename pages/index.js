@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { getAllPosts } from "../utils/mdx";
 
+import styles from '../styles/index.module.css'
+
 export default function BlogList({ posts }) {
   return (
-    <section className="recentPosts">
+    <section className={styles.recentPosts}>
       <p>Recently Published</p>
       <div id="articles">
         {posts.map((post, index) => {
@@ -15,12 +17,12 @@ export default function BlogList({ posts }) {
           }
           const date = new Date(post.frontmatter.publishedOn)
           return (
-            <article className="ContentPreview" key={index}>
+            <article className={styles.ContentPreview} key={index}>
               <Link href={`posts/${post.slug}`} passHref={true}>
                 <a>
                   <h3>{post.frontmatter.title}</h3>
                   <p>{post.frontmatter.abstract}</p>
-                  <div className="articleBottom">
+                  <div className={styles.articleBottom}>
                     <p>Read More</p>
                     <p title={date.toLocaleString()}>{date.toLocaleString(undefined, options)}</p>
                   </div>
