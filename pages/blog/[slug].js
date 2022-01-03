@@ -3,10 +3,12 @@ import Link from "next/link";
 import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
 
+import styles from '../../styles/slug.module.css'
+
 const CustomLink = ({ as, href, ...otherProps }) => {
     return (
         <Link as={as} href={href}>
-            <a {...otherProps} className="custom-link" />
+            <a {...otherProps} className={styles.anchor} />
         </Link>
     );
 };
@@ -14,13 +16,15 @@ const CustomLink = ({ as, href, ...otherProps }) => {
 const Post = ({ code, frontmatter }) => {
     const Component = useMemo(() => getMDXComponent(code), [code]);
     return (
-        <div className="wrapper">
+        <div className={styles.content}>
             <h1>{frontmatter.title}</h1>
-            <Component
-                components={{
-                    a: CustomLink,
-                }}
-            />
+            <main>
+                <Component
+                    components={{
+                        a: CustomLink,
+                    }}
+                />
+            </main>
         </div>
     );
 };
