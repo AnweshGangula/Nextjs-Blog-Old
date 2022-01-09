@@ -1,4 +1,6 @@
 .content .rehypeautolinkheadings::before {
+  /* TODO: replace this with SVG using rehype-autolink-headings in mdx.js - https://github.com/remarkjs/remark/discussions/732#discussioncomment-816042
+  another reference: https://github.com/janosh/svelte-toc/commit/8493df334a11661eddf03434372f6cd71ea313c1 */
   content: "#";
 }
 
