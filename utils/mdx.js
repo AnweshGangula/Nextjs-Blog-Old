@@ -45,7 +45,7 @@ export const getSinglePost = async (slug) => {
                     rehypeAutolinkHeadings,
                     {
                         properties: {
-                            className: ['anchor']
+                            className: ['rehypeautolinkheadings'] // this is not working with CSS Module imports
                         }
                     }
                 ]

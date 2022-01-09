@@ -5,12 +5,22 @@ import { getAllPosts, getSinglePost } from "../../utils/mdx";
 
 import styles from '../../styles/slug.module.css'
 
-const CustomLink = ({ as, href, ...otherProps }) => {
-    return (
-        <Link as={as} href={href}>
-            <a {...otherProps} className={styles.anchor} />
-        </Link>
-    );
+const CustomLink = (props) => {
+    // reference: https://github.com/vercel/next.js/discussions/11110#discussioncomment-6744
+    // reference: https://github.com/leerob/leerob.io/blob/main/components/MDXComponents.tsx
+
+    const href = props.href;
+    const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+
+    if (isInternalLink) {
+        return (
+            <Link href={href}>
+                <a {...props} className={styles.internalLink}>{props.children}</a>
+            </Link>
+        );
+    }
+
+    return <a target="_blank" rel="noopener noreferrer" {...props} />;
 };
 
 const Post = ({ code, frontmatter }) => {
