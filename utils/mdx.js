@@ -44,7 +44,9 @@ export const getSinglePost = async (slug) => {
                 [
                     rehypeAutolinkHeadings,
                     {
-                        className: ['rehypeautolinkheadings'], // TODO: this is not working with CSS Module imports (since module imports rename classes)
+                        properties: {
+                            className: ['rehypeautolinkheadings'], // TODO: this is not working with CSS Module imports (since module imports rename classes)
+                        },
                         test: [`h1`, `h2`, `h3`, `h4`, `h5`, `h6`] // Customizable headings: https://github.com/rehypejs/rehype-autolink-headings/issues/11
 
                     }

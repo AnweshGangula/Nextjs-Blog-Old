@@ -15,7 +15,7 @@ const CustomLink = (props) => {
     if (isInternalLink) {
         return (
             <Link href={encodeURIComponent(href)}>
-                <a {...props} className={styles.internalLink}>{props.children}</a>
+                <a {...props} className={`${props.className || ""} ${styles.internalLink}`}>{props.children}</a>
             </Link>
         );
     }
