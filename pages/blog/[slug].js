@@ -3,20 +3,28 @@ import Link from "next/link";
 import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
 
-import styles from '../../styles/slug.module.css'
+const CustomLink = (props) => {
+    // reference: https://github.com/vercel/next.js/discussions/11110#discussioncomment-6744
+    // reference: https://github.com/leerob/leerob.io/blob/main/components/MDXComponents.tsx
 
-const CustomLink = ({ as, href, ...otherProps }) => {
-    return (
-        <Link as={as} href={href}>
-            <a {...otherProps} className={styles.anchor} />
-        </Link>
-    );
+    const href = props.href;
+    const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
+
+    if (isInternalLink) {
+        return (
+            <Link href={encodeURIComponent(href)}>
+                <a {...props} className={`${props.className || ""} internalLink`}>{props.children}</a>
+            </Link>
+        );
+    }
+
+    return <a target="_blank" rel="noopener noreferrer" className={`${props.className || ""}`} {...props} />;
 };
 
 const Post = ({ code, frontmatter }) => {
     const Component = useMemo(() => getMDXComponent(code), [code]);
     return (
-        <div className={styles.content}>
+        <div className="content">
             <h1>{frontmatter.title}</h1>
             <main>
                 <Component
