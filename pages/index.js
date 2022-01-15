@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { getAllPosts } from "../utils/mdx";
+import styled from 'styled-components'
 
 import styles from '../styles/index.module.css'
+
+const Header = styled.h1`
+color: blue;
+font-family: arial;
+`
 
 export default function BlogList({ posts }) {
   return (
     <section className={styles.recentPosts}>
-      <p>Recently Published</p>
+      <Header>Recently Published</Header>
       <div id="articles">
         {posts.map((post, index) => {
           const options = {
