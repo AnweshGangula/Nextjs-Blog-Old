@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
 
-import styles from '../../styles/[slug].module.css'
+import styles from '../../styles/slug.module.css'
 
 const CustomLink = (props) => {
     // reference: https://github.com/vercel/next.js/discussions/11110#discussioncomment-6744
@@ -16,7 +16,6 @@ const CustomLink = (props) => {
     if (rehypeAutoLink) {
         return (
             <Link href={href} passHref>
-                {/* TODO: make below anchor tag into a styled component */}
                 <a {...props} className={`${styles.rehypeautolinkheadings} ${props.className || ""}`}>{props.children}</a>
             </Link>);
     }
