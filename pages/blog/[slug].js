@@ -17,6 +17,7 @@ const RehypeAutoLink = styled.a`
     width: 80%;
     max-width: 700px;
     cursor: pointer;
+    text-decoration: none;
 
     /* &:before{
         content: "#";
@@ -24,7 +25,6 @@ const RehypeAutoLink = styled.a`
 
     &:hover {
     opacity: 0.75;
-    text-decoration: none;
     }
 
 `

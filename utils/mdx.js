@@ -45,6 +45,7 @@ export const getSinglePost = async (slug) => {
                 [
                     rehypeAutolinkHeadings,
                     {
+                        behavior: 'prepend',
                         content: s(
                             // add SVG using rehype-autolink-headings in mdx.js - https://github.com/remarkjs/remark/discussions/732#discussioncomment-816042
                             // another reference: https://github.com/janosh/svelte-toc/commit/8493df334a11661eddf03434372f6cd71ea313c1
@@ -54,6 +55,8 @@ export const getSinglePost = async (slug) => {
                             s(`use`, { 'xlink:href': `#link-icon` })
                         ),
                         properties: {
+                            ariaHidden: true,
+                            tabIndex: -1,
                             className: ['rehypeautolinkheadings'], // TODO: this is not working with CSS Module imports (since module imports rename classes)
                         },
                         test: [`h1`, `h2`, `h3`, `h4`, `h5`, `h6`] // Customizable headings: https://github.com/rehypejs/rehype-autolink-headings/issues/11
