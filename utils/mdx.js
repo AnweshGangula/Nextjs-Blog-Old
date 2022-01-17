@@ -3,6 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 
+import remarkGfm from 'remark-gfm'
+import rehypeToc from '@jsdevtools/rehype-toc'
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -37,8 +39,21 @@ export const getSinglePost = async (slug) => {
     const { code, frontmatter } = await bundleMDX(source, {
         cwd: POSTS_PATH,
         xdmOptions(options) {
+            options.remarkPlugins = [
+                ...(options.remarkPlugins ?? []),
+                remarkGfm,
+                // remarkMath,
+            ];
             options.rehypePlugins = [
                 ...(options.rehypePlugins ?? []),
+                [rehypeToc,
+                    {
+                        headings: ["h1", "h2"],     // Only include <h1> and <h2> headings in the TOC
+                        cssClasses: {
+                            toc: "page-outline",      // Change the CSS class for the TOC
+                            link: "page-link",        // Change the CSS class for links in the TOC
+                        }
+                    }],
                 rehypeSlug,
                 rehypeCodeTitles,
                 rehypePrism,
