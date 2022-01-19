@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 
 import remarkGfm from 'remark-gfm'
+import { remarkMdxImages } from 'remark-mdx-images';
 import rehypeToc from '@jsdevtools/rehype-toc'
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
@@ -42,23 +43,24 @@ export const getSinglePost = async (slug) => {
             options.remarkPlugins = [
                 ...(options.remarkPlugins ?? []),
                 remarkGfm,
+                remarkMdxImages,
                 // remarkMath,
             ];
             options.rehypePlugins = [
                 ...(options.rehypePlugins ?? []),
                 [rehypeToc,
                     {
-                        headings: ["h1", "h2"],     // Only include <h1> and <h2> headings in the TOC
+                        headings: ["h2", "h3"],     // Only include <h1> and <h2> headings in the TOC
                         cssClasses: {
                             toc: "page-outline",      // Change the CSS class for the TOC
                             link: "page-link",        // Change the CSS class for links in the TOC
                         }
-                    }],
+                    }
+                ],
                 rehypeSlug,
                 rehypeCodeTitles,
                 rehypePrism,
-                [
-                    rehypeAutolinkHeadings,
+                [rehypeAutolinkHeadings,
                     {
                         behavior: 'prepend',
                         content: s(
@@ -79,6 +81,17 @@ export const getSinglePost = async (slug) => {
                     }
                 ]
             ];
+
+            return options;
+        },
+        esbuildOptions: (options) => {
+            options.outdir = `../../public/img/${slug}`;
+            options.loader = {
+                ...options.loader,
+                '.jpg': 'file',
+            };
+            options.publicPath = `img/${slug}`;
+            options.write = true;
 
             return options;
         },
