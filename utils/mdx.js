@@ -51,15 +51,15 @@ export const getSinglePost = async (slug) => {
             ];
             options.rehypePlugins = [
                 ...(options.rehypePlugins ?? []),
-                [rehypeToc,
-                    {
-                        headings: ["h2", "h3"],     // Only include <h1> and <h2> headings in the TOC
-                        cssClasses: {
-                            toc: "page-outline",      // Change the CSS class for the TOC
-                            link: "page-link",        // Change the CSS class for links in the TOC
-                        }
-                    }
-                ],
+                // [rehypeToc,
+                //     {
+                //         headings: ["h2", "h3"],     // Only include <h1> and <h2> headings in the TOC
+                //         cssClasses: {
+                //             toc: "page-outline",      // Change the CSS class for the TOC
+                //             link: "page-link",        // Change the CSS class for links in the TOC
+                //         }
+                //     }
+                // ],
                 rehypeSlug,
                 rehypeCodeTitles,
                 rehypePrism,
