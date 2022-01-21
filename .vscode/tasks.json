@@ -12,7 +12,9 @@
       "group": "none",
       "presentation": {
         "reveal": "silent",
-        "panel": "new"
+        "panel": "dedicated",
+        "revealProblems": "onProblem",
+        "close": true
       }
     }
   ]

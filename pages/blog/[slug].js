@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
 import styled from 'styled-components'
@@ -17,6 +18,7 @@ const RehypeAutoLink = styled.a`
     width: 80%;
     max-width: 700px;
     cursor: pointer;
+    text-decoration: none;
 
     /* &:before{
         content: "#";
@@ -24,10 +26,17 @@ const RehypeAutoLink = styled.a`
 
     &:hover {
     opacity: 0.75;
-    text-decoration: none;
     }
 
 `
+
+const MDXImage = (props) => {
+    return (
+        <div className="">
+            <Image src={props.src} alt={props.alt} layout="intrinsic" width={600} height={450} objectFit="" />
+        </div>
+    )
+}
 
 const CustomLink = (props) => {
     // reference: https://github.com/vercel/next.js/discussions/11110#discussioncomment-6744
@@ -79,6 +88,7 @@ const Post = ({ code, frontmatter }) => {
                 <Component
                     components={{
                         a: CustomLink,
+                        img: MDXImage,
                     }}
                 />
             </main>
