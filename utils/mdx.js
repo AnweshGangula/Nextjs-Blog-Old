@@ -14,7 +14,7 @@ import { s } from 'hastscript'
 
 const rootDir = process.cwd();
 const POSTS_PATH = path.join(rootDir, "data/posts");
-const imagesPath = '/images/content/posts'
+const imagesPath = '/images/content/posts' // TODO: validate the images folder
 const imagesDir = path.join(rootDir, 'public', imagesPath);
 
 export const getSourceOfFile = (fileName) => {
