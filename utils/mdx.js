@@ -12,7 +12,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 import { s } from 'hastscript'
 
-export const POSTS_PATH = path.join(process.cwd(), "data/posts");
+const rootDir = process.cwd();
+const POSTS_PATH = path.join(rootDir, "data/posts");
+const imagesPath = '/images/content/posts'
+const imagesDir = path.join(rootDir, 'public', imagesPath);
 
 export const getSourceOfFile = (fileName) => {
     return fs.readFileSync(path.join(POSTS_PATH, fileName));
@@ -85,12 +88,15 @@ export const getSinglePost = async (slug) => {
             return options;
         },
         esbuildOptions: (options) => {
-            options.outdir = `../../public/img/${slug}`;
-            options.loader = {
-                ...options.loader,
-                '.jpg': 'file',
-            };
-            options.publicPath = `img/${slug}`;
+            // TODO: Image importing, bundling - Reference: https://github.com/Savinvadim1312/notjustdev/blob/main/src/lib/postRepository.ts
+            // Reference3: https://github.com/kentcdodds/mdx-bundler/issues/127
+            // Reference2: https://github.com/kentcdodds/mdx-bundler#image-bundling
+            options.outdir = path.join(imagesDir, slug.trim()),
+                options.loader = {
+                    ...options.loader,
+                    '.jpg': 'file',
+                };
+            options.publicPath = `${imagesPath}/${slug.trim()}/`;
             options.write = true;
 
             return options;
