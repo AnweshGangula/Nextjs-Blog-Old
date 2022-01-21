@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { bundleMDX } from "mdx-bundler";
 
 import remarkGfm from 'remark-gfm'
+import { remarkMdxImages } from 'remark-mdx-images';
 import rehypeToc from '@jsdevtools/rehype-toc'
 import rehypeSlug from 'rehype-slug';
 import rehypeCodeTitles from 'rehype-code-titles';
@@ -11,7 +12,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 import { s } from 'hastscript'
 
-export const POSTS_PATH = path.join(process.cwd(), "data/posts");
+const rootDir = process.cwd();
+const POSTS_PATH = path.join(rootDir, "data/posts");
+const imagesPath = '/images/content/posts' // TODO: validate the images folder
+const imagesDir = path.join(rootDir, 'public', imagesPath);
 
 export const getSourceOfFile = (fileName) => {
     return fs.readFileSync(path.join(POSTS_PATH, fileName));
@@ -42,23 +46,24 @@ export const getSinglePost = async (slug) => {
             options.remarkPlugins = [
                 ...(options.remarkPlugins ?? []),
                 remarkGfm,
+                remarkMdxImages,
                 // remarkMath,
             ];
             options.rehypePlugins = [
                 ...(options.rehypePlugins ?? []),
                 [rehypeToc,
                     {
-                        headings: ["h1", "h2"],     // Only include <h1> and <h2> headings in the TOC
+                        headings: ["h2", "h3"],     // Only include <h1> and <h2> headings in the TOC
                         cssClasses: {
                             toc: "page-outline",      // Change the CSS class for the TOC
                             link: "page-link",        // Change the CSS class for links in the TOC
                         }
-                    }],
+                    }
+                ],
                 rehypeSlug,
                 rehypeCodeTitles,
                 rehypePrism,
-                [
-                    rehypeAutolinkHeadings,
+                [rehypeAutolinkHeadings,
                     {
                         behavior: 'prepend',
                         content: s(
@@ -79,6 +84,20 @@ export const getSinglePost = async (slug) => {
                     }
                 ]
             ];
+
+            return options;
+        },
+        esbuildOptions: (options) => {
+            // TODO: Image importing, bundling - Reference: https://github.com/Savinvadim1312/notjustdev/blob/main/src/lib/postRepository.ts
+            // Reference3: https://github.com/kentcdodds/mdx-bundler/issues/127
+            // Reference2: https://github.com/kentcdodds/mdx-bundler#image-bundling
+            options.outdir = path.join(imagesDir, slug.trim()),
+                options.loader = {
+                    ...options.loader,
+                    '.jpg': 'file',
+                };
+            options.publicPath = `${imagesPath}/${slug.trim()}/`;
+            options.write = true;
 
             return options;
         },
