@@ -77,7 +77,7 @@ export const getSinglePost = async (slug) => {
                         properties: {
                             ariaHidden: true,
                             tabIndex: -1,
-                            className: ['rehypeautolinkheadings'], // TODO: this is not working with CSS Module imports (since module imports rename classes)
+                            className: ['rehypeautolinkheadings'],
                         },
                         test: [`h1`, `h2`, `h3`, `h4`, `h5`, `h6`] // Customizable headings: https://github.com/rehypejs/rehype-autolink-headings/issues/11
 
@@ -88,7 +88,7 @@ export const getSinglePost = async (slug) => {
             return options;
         },
         esbuildOptions: (options) => {
-            // TODO: Image importing, bundling - Reference: https://github.com/Savinvadim1312/notjustdev/blob/main/src/lib/postRepository.ts
+            // Image importing, bundling - Reference: https://github.com/Savinvadim1312/notjustdev/blob/main/src/lib/postRepository.ts
             // Reference3: https://github.com/kentcdodds/mdx-bundler/issues/127
             // Reference2: https://github.com/kentcdodds/mdx-bundler#image-bundling
             options.outdir = path.join(imagesDir, slug.trim()),

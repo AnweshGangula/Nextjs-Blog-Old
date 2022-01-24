@@ -5,6 +5,8 @@ import { getMDXComponent } from "mdx-bundler/client";
 import { getAllPosts, getSinglePost } from "../../utils/mdx";
 import styled from 'styled-components'
 
+// TODO: Create separate files for MDXImage & Custom link component
+
 const InternalLink = styled.a`
     display: inline-block;
     color: lightseagreen;
@@ -30,11 +32,35 @@ const RehypeAutoLink = styled.a`
 
 `
 
+const CustomImage = styled.div`
+/* Reference: https://dev.to/felixhaeberle/responsive-fix-for-the-next-js-image-component-1351 */
+    width: 100%;
+
+    & span {
+        position: unset !important;
+    }
+
+    & .image{
+    object-fit: contain;
+    width: unset !important;
+    position: relative !important;
+    height: unset !important;
+    min-height: unset !important;
+    min-width: unset !important;
+    /* margin: unset !important; */
+    }
+
+
+`
+
 const MDXImage = (props) => {
+    const src = props.src
+    const isExternalImage = src.startsWith('http') || src.startsWith('www')
+
     return (
-        <div className="">
-            <Image src={props.src} alt={props.alt} layout="intrinsic" width={600} height={450} objectFit="" />
-        </div>
+        <CustomImage>
+            <Image className='image' src={src} alt={props.alt} layout="fill" priority={true} />
+        </CustomImage>
     )
 }
 
@@ -49,7 +75,6 @@ const CustomLink = (props) => {
     if (rehypeAutoLink) {
         return (
             <Link href={href} passHref>
-                {/* TODO: make below anchor tag into a styled component */}
                 <RehypeAutoLink {...props} className={`${props.className || ""}`}>{props.children}</RehypeAutoLink>
             </Link>);
     }
@@ -57,14 +82,12 @@ const CustomLink = (props) => {
         return (
             // href={encodeURIComponent(href)}
             <Link href={href} passHref>
-                {/* TODO: make below anchor tag into a styled component */}
                 <InternalLink {...props} className={`${props.className || ""}`}>{props.children}</InternalLink>
             </Link>
         );
     }
     else {
         return (
-            // TODO: make below anchor tag into a styled component
             <a {...props} target="_blank" rel="noopener noreferrer" className={`${props.className || ""}`} />
         );
     }
