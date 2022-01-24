@@ -59,7 +59,7 @@ const MDXImage = (props) => {
 
     return (
         <CustomImage>
-            <Image className='image' src={src} alt={props.alt} layout="fill" />
+            <Image className='image' src={src} alt={props.alt} layout="fill" priority={true} />
         </CustomImage>
     )
 }
