@@ -15,7 +15,7 @@ const InternalLink = styled.a`
 const RehypeAutoLink = styled.a`
     opacity: 0;
     position: absolute;
-    margin-left: -1em;
+    margin-left: -20px;
     padding-right: 0.5em;
     width: 80%;
     max-width: 700px;
@@ -33,23 +33,25 @@ const RehypeAutoLink = styled.a`
 `
 
 const CustomImage = styled.div`
-/* Reference: https://dev.to/felixhaeberle/responsive-fix-for-the-next-js-image-component-1351 */
-    width: 100%;
+/* Reference: https://dev.to/felixhaeberle/responsive-fix-for-the-next-js-image-component-1351 
+    Reference2: https://github.com/vercel/next.js/tree/canary/examples/image-component
+*/
+    position: relative;
+    aspect-ratio: 16/9;
 
-    & span {
+    /* & span {
         position: unset !important;
-    }
+    } */
 
     & .image{
-    object-fit: contain;
-    width: unset !important;
-    position: relative !important;
+    /* object-fit: contain; */
+    /* position: relative !important; */
+    width: 100% !important;
     height: unset !important;
     min-height: unset !important;
     min-width: unset !important;
     /* margin: unset !important; */
     }
-
 
 `
 
@@ -59,7 +61,7 @@ const MDXImage = (props) => {
 
     return (
         <CustomImage>
-            <Image className='image' src={src} alt={props.alt} layout="fill" priority={true} />
+            <Image className='image' src={src} alt={props.alt} layout="fill" objectFit="contain" />
         </CustomImage>
     )
 }
