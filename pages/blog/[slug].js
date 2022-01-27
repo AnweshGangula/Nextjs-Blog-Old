@@ -15,7 +15,7 @@ const InternalLink = styled.a`
 const RehypeAutoLink = styled.a`
     opacity: 0;
     position: absolute;
-    margin-left: -1em;
+    margin-left: -20px;
     padding-right: 0.5em;
     width: 80%;
     max-width: 700px;
