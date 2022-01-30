@@ -33,6 +33,7 @@ const RehypeAutoLink = styled.a`
 `
 
 const CustomImage = styled.div`
+// TODO: need to change this to styled.span to solve error - validateDOMNesting(...): <div> cannot appear as a descendant of <p>.
 /* Reference: https://dev.to/felixhaeberle/responsive-fix-for-the-next-js-image-component-1351 
     Reference2: https://github.com/vercel/next.js/tree/canary/examples/image-component
 */
