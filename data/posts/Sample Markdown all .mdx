@@ -88,7 +88,7 @@ g.salute
 ```
 
 Note: You can specify the different syntax highlighting based on the coding language eg. ruby, sh (for shell), php, etc  
-Note: You must leave a blank line before the `\`\`\``
+Note: You must leave a blank line before the \`\`\`
 
 ## Coding - In-line
 
@@ -116,16 +116,17 @@ _Italic Text_ is done using `*Italic Text*`
 - GFMD will automatically detect URL and convert them to links like this http://www.futureworkz.com
 - To specify a link on a text, do this:
 
-    ```
-    This is [an example](http://example.com/ "Title") inline link.
-    [This link](http://example.net/) has no title attribute.
-    ```
+  ```
+  TODO: rehype prism doesn't work without language
+  This is [an example](http://example.com/ "Title") inline link.
+  [This link](http://example.net/) has no title attribute.
+  ```
 
 ---
 
 ## Escape sequence
 
-You can escape using \\ eg. \\\`
+You can escape using \\ eg: \\\`
 
 ---
 
@@ -163,7 +164,7 @@ will produce
 
 These two can only be created via HTML:
 
-````html
+```html
 <table>
   <tr>
     <th>ID</th>
@@ -191,7 +192,9 @@ These two can only be created via HTML:
   <dt>Easier to use</dt>
   <dd>We've changed the product so that it's much easier to use!</dd>
 </dl>
-``` will produce
+```
+
+will produce
 
 <table>
   <tr>
@@ -221,6 +224,8 @@ These two can only be created via HTML:
   <dd>We've changed the product so that it's much easier to use!</dd>
 </dl>
 
-## Adding Image ``` ![Branching
-Concepts](http://git-scm.com/figures/18333fig0319-tn.png "Branching Map") ```
-````
+## Adding Image
+
+```
+![Branching Concepts](http://git-scm.com/figures/18333fig0319-tn.png "Branching Map")
+```
