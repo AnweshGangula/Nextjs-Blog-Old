@@ -38,10 +38,12 @@ export const getAllPosts = () => {
 };
 
 export const getSinglePost = async (slug) => {
+    const filepath = path.join(POSTS_PATH, `${slug}.mdx`)
     const sourceMDX = getSourceOfFile(slug + ".mdx");
 
     const { code, frontmatter } = await bundleMDX({
-        source: sourceMDX,
+        // source: sourceMDX,
+        file: filepath,
         cwd: POSTS_PATH,
         xdmOptions(options) {
             options.remarkPlugins = [
