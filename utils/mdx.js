@@ -18,8 +18,13 @@ const imagesPath = '/images/content/posts' // TODO: validate the images folder
 const imagesDir = path.join(rootDir, 'public', imagesPath);
 
 export const getSourceOfFile = (fileName) => {
-    return fs.readFileSync(path.join(POSTS_PATH, fileName));
+    return fs.readFileSync(path.join(POSTS_PATH, fileName), 'utf8');
 };
+
+function first30words(file, options) {
+    // rerference: https://github.com/jonschlinkert/gray-matter#:~:text=returns%20the%20first%204%20lines%20of%20the%20contents
+    file.excerpt = file.content.split(' ').slice(0, 30).join(' ') + "...";
+}
 
 export const getAllPosts = () => {
     return fs
@@ -28,19 +33,23 @@ export const getAllPosts = () => {
         .map((fileName) => {
             const source = getSourceOfFile(fileName);
             const slug = fileName.replace(/\.mdx?$/, "");
-            const { data } = matter(source);
+            const { data, excerpt } = matter(source, { excerpt: first30words });
 
             return {
                 frontmatter: data,
                 slug: slug,
+                excerpt: excerpt,
             };
         });
 };
 
 export const getSinglePost = async (slug) => {
-    const source = getSourceOfFile(slug + ".mdx");
+    const filepath = path.join(POSTS_PATH, `${slug}.mdx`)
+    const sourceMDX = getSourceOfFile(slug + ".mdx");
 
-    const { code, frontmatter } = await bundleMDX(source, {
+    const { code, frontmatter } = await bundleMDX({
+        // source: sourceMDX,
+        file: filepath,
         cwd: POSTS_PATH,
         xdmOptions(options) {
             options.remarkPlugins = [

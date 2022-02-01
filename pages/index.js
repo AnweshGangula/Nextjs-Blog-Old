@@ -15,6 +15,7 @@ export default function BlogList({ posts }) {
       <Header>Recently Published</Header>
       <div id="articles">
         {posts.map((post, index) => {
+          post.frontmatter.abstract = post.frontmatter.abstract || post.excerpt
           const options = {
             // Format Date in JS: https://stackoverflow.com/a/69883358/6908282
             year: 'numeric',
