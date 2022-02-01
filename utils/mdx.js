@@ -21,6 +21,11 @@ export const getSourceOfFile = (fileName) => {
     return fs.readFileSync(path.join(POSTS_PATH, fileName), 'utf8');
 };
 
+function first30words(file, options) {
+    // rerference: https://github.com/jonschlinkert/gray-matter#:~:text=returns%20the%20first%204%20lines%20of%20the%20contents
+    file.excerpt = file.content.split(' ').slice(0, 30).join(' ') + "...";
+}
+
 export const getAllPosts = () => {
     return fs
         .readdirSync(POSTS_PATH)
@@ -28,11 +33,12 @@ export const getAllPosts = () => {
         .map((fileName) => {
             const source = getSourceOfFile(fileName);
             const slug = fileName.replace(/\.mdx?$/, "");
-            const { data } = matter(source);
+            const { data, excerpt } = matter(source, { excerpt: first30words });
 
             return {
                 frontmatter: data,
                 slug: slug,
+                excerpt: excerpt,
             };
         });
 };
