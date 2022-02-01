@@ -18,7 +18,7 @@ const imagesPath = '/images/content/posts' // TODO: validate the images folder
 const imagesDir = path.join(rootDir, 'public', imagesPath);
 
 export const getSourceOfFile = (fileName) => {
-    return fs.readFileSync(path.join(POSTS_PATH, fileName));
+    return fs.readFileSync(path.join(POSTS_PATH, fileName), 'utf8');
 };
 
 export const getAllPosts = () => {
@@ -38,9 +38,12 @@ export const getAllPosts = () => {
 };
 
 export const getSinglePost = async (slug) => {
-    const source = getSourceOfFile(slug + ".mdx");
+    const filepath = path.join(POSTS_PATH, `${slug}.mdx`)
+    const sourceMDX = fs.readFileSync(filepath, 'utf8');
 
-    const { code, frontmatter } = await bundleMDX(source, {
+    const { code, frontmatter } = await bundleMDX({
+        source: sourceMDX,
+        // file: filepath,
         cwd: POSTS_PATH,
         xdmOptions(options) {
             options.remarkPlugins = [
